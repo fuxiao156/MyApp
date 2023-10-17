@@ -5,7 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.util.DisplayMetrics
+import android.util.Log
+
 object ImageUtils {
     fun scaleDrawable(
         drawable: Drawable,
@@ -38,16 +39,15 @@ object ImageUtils {
             val bitmap = drawable.bitmap
             val width = bitmap.width
             val height = bitmap.height
-            val displayMetrics = DisplayMetrics()
-//            val screenWidth = displayMetrics.widthPixels
-            val scaleWidth = displayMetrics.widthPixels/2
-//            val scaleHeight = targetHeight?.toFloat()?.div(height)
 
-            // 计算缩放比例
-            val scale = scaleWidth.toFloat()
+            val displayMetrics = Resources.getSystem().displayMetrics
+            val screenWidth = displayMetrics.widthPixels
+
+            val scaleWidth = screenWidth.toFloat() / 4 / width
+            Log.d("ImageUtils", "Screen Width: $screenWidth, Scale Width: $scaleWidth")
 
             val matrix = Matrix()
-            matrix.postScale(scale, scale)
+            matrix.postScale(scaleWidth, scaleWidth)
 
             val scaledBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true)
             return BitmapDrawable(Resources.getSystem(), scaledBitmap)

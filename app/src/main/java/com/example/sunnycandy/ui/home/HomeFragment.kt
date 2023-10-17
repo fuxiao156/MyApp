@@ -1,5 +1,6 @@
 package com.example.sunnycandy.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,14 +31,13 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+
+//        处理图片
         val textView2 : TextView = binding.icon1
         textView2.text = "sunnycandy"
         val drawable = textView2.compoundDrawables
-        val scaledDrawable = ImageUtils.scaleDrawable(drawable[1],targetWidth = 100)
+        val context: Context = requireContext()
+        val scaledDrawable = ImageUtils.scaleDrawable(drawable[1], targetWidth = 180)
         textView2.setCompoundDrawablesWithIntrinsicBounds(
             null,
             scaledDrawable, // top，这里设置缩放后的 Drawable
