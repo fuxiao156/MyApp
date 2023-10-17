@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sunnycandy.databinding.FragmentHomeBinding
+import com.example.sunnycandy.utils.ImageUtils
 
 class HomeFragment : Fragment() {
 
@@ -16,6 +17,7 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -32,6 +34,16 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+        val textView2 : TextView = binding.icon1
+        textView2.text = "sunnycandy"
+        val drawable = textView2.compoundDrawables
+        val scaledDrawable = ImageUtils.scaleDrawable(drawable[1],targetWidth = 100)
+        textView2.setCompoundDrawablesWithIntrinsicBounds(
+            null,
+            scaledDrawable, // top，这里设置缩放后的 Drawable
+            null,
+            null,
+        )
         return root
     }
 
