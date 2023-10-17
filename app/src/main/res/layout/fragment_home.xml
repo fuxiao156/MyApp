@@ -6,31 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:columnCount="3"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent">
+        tools:ignore="MissingConstraints"
+        >
 
         <TextView
-            android:drawableTop="@drawable/zency"
             android:id="@+id/icon1"
-            android:layout_rowSpan="5"
-            android:layout_columnSpan="3"
-            android:background="#6EC1BC"
+            android:layout_width="wrap_content"
+            android:layout_row="0"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:background="@drawable/home_icon"
+            android:drawableTop="@drawable/ic_launcher_foreground"
+            android:gravity="center"
             android:text="盒子1"
             android:textSize="20sp" />
 
-<!--        <TextView-->
-<!--            android:drawableTop="@drawable/zency"-->
-<!--            android:id="@+id/icon2"-->
-<!--            android:layout_rowSpan="5"-->
-<!--            android:layout_columnSpan="2"-->
-<!--            android:background="#25D31F"-->
-<!--            android:text="盒子3"-->
-<!--            android:textSize="20sp" />-->
+        <TextView
+            android:id="@+id/icon2"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:background="@drawable/home_icon"
+            android:drawableTop="@drawable/ic_launcher_foreground"
+            android:gravity="center"
+            android:text="盒子3"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/icon3"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:background="@drawable/home_icon"
+            android:drawableTop="@drawable/ic_launcher_foreground"
+            android:gravity="center"
+            android:text="盒子3"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/icon4"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:background="@drawable/home_icon"
+            android:drawableTop="@drawable/ic_launcher_foreground"
+            android:gravity="center"
+            android:text="盒子3"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/icon5"
+            android:layout_rowSpan="1"
+            android:layout_columnSpan="1"
+            android:background="@drawable/home_icon"
+            android:drawableTop="@drawable/ic_launcher_foreground"
+            android:gravity="center"
+            android:text="盒子3"
+            android:textSize="20sp" />
 
     </GridLayout>
 
