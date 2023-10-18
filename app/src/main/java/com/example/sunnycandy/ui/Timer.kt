@@ -13,5 +13,13 @@ class Timer : AppCompatActivity() {
 
         binding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val button = binding.assure
+        button.setOnClickListener{
+            val week = binding.week.text.toString().toInt()
+            val day = binding.day.text.toString().toInt()
+            val hour = binding.hour.text.toString().toInt()
+            val minite = binding.minite.text.toString().toInt()
+            val second = binding.second.text.toString().toInt()
+        }
     }
 }

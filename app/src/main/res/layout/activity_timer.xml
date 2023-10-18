@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,83 @@
     android:fitsSystemWindows="true"
     tools:context=".ui.Timer">
 
+<!--    循环播报的通知  -->
+   <LinearLayout
+       android:id="@+id/cyclenote"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:gravity="center"
+       >
+       <TextView
+           android:text="循环播报通知"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"/>
+       <TextView
+           android:text="循环间隔"
+           android:layout_width="wrap_content"
+           android:layout_height="50dp"/>
+    <LinearLayout
+        android:id="@+id/timeInpute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <EditText
+            android:id="@+id/week"
+            android:inputType="number"
+            android:layout_width="50dp"
+            android:hint="周"
+            android:layout_height="50dp"/>
+        <EditText
+            android:id="@+id/day"
+            android:inputType="number"
+            android:layout_width="50dp"
+            android:hint="天"
+            android:layout_height="50dp"/>
+        <EditText
+            android:id="@+id/hour"
+            android:inputType="number"
+            android:layout_width="50dp"
+            android:hint="时"
+            android:layout_height="50dp"/>
+        <EditText
+            android:id="@+id/minite"
+            android:inputType="number"
+            android:layout_width="50dp"
+            android:hint="分"
+            android:layout_height="50dp"/>
+        <EditText
+            android:id="@+id/second"
+            android:inputType="number"
+            android:layout_width="50dp"
+            android:hint="秒"
+            android:layout_height="50dp"/>
+    </LinearLayout>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="50dp"
+           android:text="开始时间"/>
+       <DatePicker
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:datePickerMode="spinner"
+           android:calendarViewShown="false"/>
+       <TimePicker
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:timePickerMode="spinner"/>
+       <Button
+           android:id="@+id/assure"
+           android:layout_width="200dp"
+           android:text="确定开始"
+           android:layout_height="80dp"/>
+
+   </LinearLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--    任务队列   -->
+
+
+</androidx.core.widget.NestedScrollView>
