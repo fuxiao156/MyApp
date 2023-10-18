@@ -1,8 +1,20 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="#FFFFFF" /> <!-- 设置背景颜色 -->
-    <stroke
-        android:width="1dp"
-    android:color="#FF0000" /> <!-- 边框颜色 -->
-    <corners android:radius="8dp" /> <!-- 可选：设置圆角半径 -->
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 阴影 -->
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="#14000000" /> <!-- 阴影的颜色和不透明度 -->
+            <corners android:radius="8dp" /> <!-- 圆角半径，可根据需要调整 -->
+        </shape>
+    </item>
+
+    <!-- 背景 -->
+    <item android:bottom="5dp"
+        android:right="5dp"> <!-- 设置阴影距离 -->
+        <shape
+            android:shape="rectangle">
+            <solid android:color="#FFFFFF" /> <!-- 设置背景颜色 -->
+            <corners android:radius="8dp" /> <!-- 圆角半径，可根据需要调整 -->
+        </shape>
+    </item>
+</layer-list>
