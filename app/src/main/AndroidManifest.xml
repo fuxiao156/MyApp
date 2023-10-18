@@ -13,6 +13,11 @@
         android:theme="@style/Theme.SunnyCandy"
         tools:targetApi="31">
         <activity
+            android:name=".ui.Timer"
+            android:exported="false"
+            android:label="@string/title_activity_timer"
+            android:theme="@style/Theme.SunnyCandy.NoActionBar" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
