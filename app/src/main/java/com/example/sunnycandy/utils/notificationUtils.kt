@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.example.sunnycandy.R
 
 class notificationUtils (private val context: Context){
     // 创建通知渠道
@@ -28,12 +27,12 @@ class notificationUtils (private val context: Context){
         notificationId: Int,
         title: String,
         contentText: String,
+        smallIcon: Int
     ) {
         val builder = NotificationCompat.Builder(context, channelId)
             .setContentTitle(title)
             .setContentText(contentText)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setSmallIcon(smallIcon)
 
         // 发送通知
         val notificationManager = NotificationManagerCompat.from(context)
@@ -42,10 +41,9 @@ class notificationUtils (private val context: Context){
         if (granted) {
             // 已授权，执行需要权限的操作
             notificationManager.notify(notificationId, builder.build())
-//            Log.d("Timer","已获得授权")
         }
         else{
+        }
             Log.d("Timer","未获得授权")
         }
-    }
 }
