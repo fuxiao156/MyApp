@@ -15,28 +15,32 @@ class ReminderWorker(appContext: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         // 返回 Result.success() 表示任务执行成功
         sendNotification()
+        val interval = inputData.getInt("Interval",10)
+        val tag = inputData.getString("tag")
         Log.d("是否执行循环","执行了一次循环")
         val daliyWorkRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
             .setInitialDelay(
-                10,TimeUnit.SECONDS
+                interval.toLong(),TimeUnit.SECONDS
             ).setInputData(inputData)
-            .addTag("test")
+            .addTag(tag.toString())
             .build()
         WorkManager.getInstance(applicationContext)
             .enqueue(daliyWorkRequest)
         return Result.success()
     }
     private fun sendNotification(){
+        //从inputData获取数据
         val inputData = inputData
         val title = inputData.getString("title")
         val contentText = inputData.getString("content")
+        val notifacationId = inputData.getInt("notificationId",10)
         // 在这里执行发送通知的逻辑，比如使用 NotificationManager 发送通知
         val notification = notificationUtils(applicationContext)
         // 创建通知渠道
         notification.createNotificationChannel("timer", "timer")
 
         if (contentText != null&& title!=null) {
-            notification.sendNotification("timer", 2,  title, contentText, R.drawable.clock)
+            notification.sendNotification("timer", notifacationId,  title, contentText, R.drawable.clock)
         }
         else{
             Log.d("循环相关","循环停止")

@@ -24,15 +24,6 @@ class Timer : AppCompatActivity() {
 
         binding = ActivityTimerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val button = binding.assure
-
-        //给按钮绑定点击事件
-        button.setOnClickListener{
-            val day = binding.day.text.toString().toInt()
-            val hour = binding.hour.text.toString().toInt()
-            val minite = binding.minite.text.toString().toInt()
-            val second = binding.second.text.toString().toInt()
-        }
 
         // 在Activity或Fragment中请求后台权限
         val permission1 = Manifest.permission.FOREGROUND_SERVICE
@@ -49,33 +40,53 @@ class Timer : AppCompatActivity() {
 
         // 创建通知渠道
         notification.createNotificationChannel("timer", "timer")
+        val button = binding.assure
 
-        //绑定通知内容
-        val title = "通知标题"
-        val contentText = "通知内容"
-        val permission2 = Manifest.permission.POST_NOTIFICATIONS
-        //检测是否授权
-        val granted = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, permission2)
-        if (granted) {
-            // 已授权，执行需要权限的操作
+        //给按钮绑定点击事件
+        button.setOnClickListener{
+            val day = binding.day.text.toString()
+            val hour = binding.hour.text.toString()
+            val minite = binding.minite.text.toString()
+            //绑定通知内容
+            val title = "通知标题"
+            val contentText = "通知内容"
+            val tag = "test"
+            //每一个通知的id
+            val notificationId = 1
+            val permission = Manifest.permission.POST_NOTIFICATIONS
+            //延迟时间-分钟
+            val delayTime = 5
+            //循环间隔-分钟
+            val interval = 10
             val inputData = Data.Builder()
                 .putString("title",title)
                 .putString("content",contentText)
+                .putString("tag",tag)
+                .putInt("notificationId",notificationId)
+                .putInt("delayTime",delayTime)
+                .putInt("Interval",interval)
                 .build()
-            // 创建 OneTimeWorkequest 来调度 ReminderWorker
-            val workRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
-            .setInitialDelay(
-                2,
-                TimeUnit.SECONDS
-            ).setInputData(inputData).addTag("test")
-                .build()
-
-            // 将任务请求加入 WorkManager 队列
-            WorkManager.getInstance(this).enqueue(workRequest)
-        } else {
-            // 未授权，需要请求权限或执行适当的处理
-            ActivityCompat.requestPermissions(this, arrayOf(permission2), 100)
+            //检测是否授权
+            val granted = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, permission)
+            if (granted) {
+                //  已授权，创建 OneTimeWorkequest 来调度 ReminderWorker
+                val workRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
+                    .setInitialDelay(
+                        delayTime.toLong(),
+                        TimeUnit.SECONDS
+                    ).setInputData(inputData).addTag(tag)
+                    .build()
+                // 将任务请求加入 WorkManager 队列
+                WorkManager.getInstance(this).enqueue(workRequest)
+            } else {
+                // 未授权，需要请求权限或执行适当的处理
+                ActivityCompat.requestPermissions(this, arrayOf(permission), 100)
+            }
         }
 
+        val cancelButton = binding.cancel
+        cancelButton.setOnClickListener {
+            WorkManager.getInstance(this).cancelAllWorkByTag("test")
+        }
     }
 }
