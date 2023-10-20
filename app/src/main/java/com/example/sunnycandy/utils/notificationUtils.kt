@@ -43,7 +43,7 @@ class notificationUtils (private val context: Context){
             notificationManager.notify(notificationId, builder.build())
         }
         else{
-        }
             Log.d("Timer","未获得授权")
+        }
         }
 }
