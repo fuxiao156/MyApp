@@ -19,21 +19,21 @@
            android:text="循环播报通知"
            android:layout_width="match_parent"
            android:layout_height="50dp"/>
-       <TextView
-           android:text="循环间隔"
-           android:layout_width="wrap_content"
-           android:layout_height="50dp"/>
        <EditText
            android:id="@+id/title"
-           android:inputType="number"
+           android:inputType="text"
            android:layout_width="match_parent"
            android:hint="标题"
            android:layout_height="50dp"/>
        <EditText
            android:id="@+id/context"
-           android:inputType="number"
+           android:inputType="text"
            android:layout_width="match_parent"
            android:hint="描述"
+           android:layout_height="50dp"/>
+       <TextView
+           android:text="循环间隔"
+           android:layout_width="wrap_content"
            android:layout_height="50dp"/>
     <LinearLayout
         android:id="@+id/timeInpute"

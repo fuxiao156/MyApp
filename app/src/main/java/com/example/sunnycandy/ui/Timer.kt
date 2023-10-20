@@ -3,6 +3,8 @@ package com.example.sunnycandy.ui
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -42,6 +44,8 @@ class Timer : AppCompatActivity() {
         notification.createNotificationChannel("timer", "timer")
         val button = binding.assure
 
+        //获取历史闹钟列表元素
+        val history = binding.history
         //给按钮绑定点击事件
         button.setOnClickListener{
 //            val day = binding.day.text.toString()
@@ -79,6 +83,14 @@ class Timer : AppCompatActivity() {
                 // 将任务请求加入 WorkManager 队列
                 WorkManager.getInstance(this).enqueueUniqueWork(title,
                     ExistingWorkPolicy.REPLACE,workRequest)
+
+                val textView = TextView(this)
+                textView.text = title
+                textView.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, // 宽度
+                    LinearLayout.LayoutParams.WRAP_CONTENT  // 高度
+                )
+                history.addView(textView)
             } else {
                 // 未授权，需要请求权限或执行适当的处理
                 ActivityCompat.requestPermissions(this, arrayOf(permission), 100)
@@ -93,5 +105,6 @@ class Timer : AppCompatActivity() {
         cancelButton2.setOnClickListener {
             WorkManager.getInstance(this).cancelUniqueWork(binding.title.text.toString())
         }
+
     }
 }
