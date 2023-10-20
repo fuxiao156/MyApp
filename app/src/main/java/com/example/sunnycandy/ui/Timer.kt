@@ -14,7 +14,6 @@ import com.example.sunnycandy.service.ReminderWorker
 import com.example.sunnycandy.utils.notificationUtils
 import java.util.concurrent.TimeUnit
 import androidx.work.Data
-import androidx.work.PeriodicWorkRequestBuilder
 
 class Timer : AppCompatActivity() {
 
@@ -35,6 +34,16 @@ class Timer : AppCompatActivity() {
             val second = binding.second.text.toString().toInt()
         }
 
+        // 在Activity或Fragment中请求后台权限
+        val permission1 = Manifest.permission.FOREGROUND_SERVICE
+        val requestCode = 123 // 替换为您自己的请求码
+
+        if (ContextCompat.checkSelfPermission(this, permission1) != PackageManager.PERMISSION_GRANTED) {
+            // 如果应用没有权限，请求权限
+            ActivityCompat.requestPermissions(this, arrayOf(permission1), requestCode)
+        }
+
+
         //获取notificationUtils类对象
         val notification = notificationUtils(this)
 
@@ -44,9 +53,9 @@ class Timer : AppCompatActivity() {
         //绑定通知内容
         val title = "通知标题"
         val contentText = "通知内容"
-        val permission = Manifest.permission.POST_NOTIFICATIONS
+        val permission2 = Manifest.permission.POST_NOTIFICATIONS
         //检测是否授权
-        val granted = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, permission)
+        val granted = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, permission2)
         if (granted) {
             // 已授权，执行需要权限的操作
             val inputData = Data.Builder()
@@ -54,10 +63,8 @@ class Timer : AppCompatActivity() {
                 .putString("content",contentText)
                 .build()
             // 创建 OneTimeWorkequest 来调度 ReminderWorker
-            val workRequest = PeriodicWorkRequestBuilder<ReminderWorker>(
-                5,
-                TimeUnit.SECONDS
-            ).setInitialDelay(
+            val workRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
+            .setInitialDelay(
                 2,
                 TimeUnit.SECONDS
             ).setInputData(inputData).addTag("test")
@@ -67,7 +74,7 @@ class Timer : AppCompatActivity() {
             WorkManager.getInstance(this).enqueue(workRequest)
         } else {
             // 未授权，需要请求权限或执行适当的处理
-            ActivityCompat.requestPermissions(this, arrayOf(permission), 100)
+            ActivityCompat.requestPermissions(this, arrayOf(permission2), 100)
         }
 
     }

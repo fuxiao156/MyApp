@@ -7,6 +7,7 @@ class MyApplication  : Application(){
     override fun onCreate() {
         super.onCreate()
         initializeWorkManager()
+
     }
 
     private fun initializeWorkManager() {
