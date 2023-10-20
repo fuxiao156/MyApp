@@ -2,7 +2,6 @@ package com.example.sunnycandy.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -14,6 +13,7 @@ import com.example.sunnycandy.service.ReminderWorker
 import com.example.sunnycandy.utils.notificationUtils
 import java.util.concurrent.TimeUnit
 import androidx.work.Data
+import androidx.work.ExistingWorkPolicy
 
 class Timer : AppCompatActivity() {
 
@@ -44,12 +44,12 @@ class Timer : AppCompatActivity() {
 
         //给按钮绑定点击事件
         button.setOnClickListener{
-            val day = binding.day.text.toString()
-            val hour = binding.hour.text.toString()
-            val minite = binding.minite.text.toString()
+//            val day = binding.day.text.toString()
+//            val hour = binding.hour.text.toString()
+//            val minite = binding.minite.text.toString()
             //绑定通知内容
-            val title = "通知标题"
-            val contentText = "通知内容"
+            val title = binding.title.text.toString()
+            val contentText = binding.context.text.toString()
             val tag = "test"
             //每一个通知的id
             val notificationId = 1
@@ -77,7 +77,8 @@ class Timer : AppCompatActivity() {
                     ).setInputData(inputData).addTag(tag)
                     .build()
                 // 将任务请求加入 WorkManager 队列
-                WorkManager.getInstance(this).enqueue(workRequest)
+                WorkManager.getInstance(this).enqueueUniqueWork(title,
+                    ExistingWorkPolicy.REPLACE,workRequest)
             } else {
                 // 未授权，需要请求权限或执行适当的处理
                 ActivityCompat.requestPermissions(this, arrayOf(permission), 100)
@@ -87,6 +88,10 @@ class Timer : AppCompatActivity() {
         val cancelButton = binding.cancel
         cancelButton.setOnClickListener {
             WorkManager.getInstance(this).cancelAllWorkByTag("test")
+        }
+        val cancelButton2 = binding.cancel2
+        cancelButton2.setOnClickListener {
+            WorkManager.getInstance(this).cancelUniqueWork(binding.title.text.toString())
         }
     }
 }

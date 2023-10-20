@@ -2,6 +2,7 @@ package com.example.sunnycandy.service
 
 import android.content.Context
 import android.util.Log
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -15,6 +16,7 @@ class ReminderWorker(appContext: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         // 返回 Result.success() 表示任务执行成功
         sendNotification()
+        val title = inputData.getString("title").toString()
         val interval = inputData.getInt("Interval",10)
         val tag = inputData.getString("tag")
         Log.d("是否执行循环","执行了一次循环")
@@ -25,7 +27,7 @@ class ReminderWorker(appContext: Context, workerParams: WorkerParameters) :
             .addTag(tag.toString())
             .build()
         WorkManager.getInstance(applicationContext)
-            .enqueue(daliyWorkRequest)
+            .enqueueUniqueWork(title, ExistingWorkPolicy.REPLACE,daliyWorkRequest)
         return Result.success()
     }
     private fun sendNotification(){

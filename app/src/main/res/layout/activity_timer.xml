@@ -23,6 +23,18 @@
            android:text="循环间隔"
            android:layout_width="wrap_content"
            android:layout_height="50dp"/>
+       <EditText
+           android:id="@+id/title"
+           android:inputType="number"
+           android:layout_width="match_parent"
+           android:hint="标题"
+           android:layout_height="50dp"/>
+       <EditText
+           android:id="@+id/context"
+           android:inputType="number"
+           android:layout_width="match_parent"
+           android:hint="描述"
+           android:layout_height="50dp"/>
     <LinearLayout
         android:id="@+id/timeInpute"
         android:layout_width="match_parent"
@@ -54,15 +66,15 @@
            android:layout_height="50dp"
            android:gravity="bottom"
            android:text="开始时间"/>
-       <DatePicker
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:datePickerMode="spinner"
-           android:calendarViewShown="false"/>
-       <TimePicker
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:timePickerMode="spinner"/>
+<!--       <DatePicker-->
+<!--           android:layout_width="match_parent"-->
+<!--           android:layout_height="wrap_content"-->
+<!--           android:datePickerMode="spinner"-->
+<!--           android:calendarViewShown="false"/>-->
+<!--       <TimePicker-->
+<!--           android:layout_width="match_parent"-->
+<!--           android:layout_height="wrap_content"-->
+<!--           android:timePickerMode="spinner"/>-->
        <Button
            android:id="@+id/assure"
            android:layout_width="200dp"
@@ -71,9 +83,21 @@
        <Button
            android:id="@+id/cancel"
            android:layout_width="200dp"
-           android:text="停止发送"
+           android:text="停止发送tag"
+           android:layout_height="80dp"/>
+       <Button
+           android:id="@+id/cancel2"
+           android:layout_width="200dp"
+           android:text="停止发送byname"
            android:layout_height="80dp"/>
 
+       <LinearLayout
+           android:id="@+id/history"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+       </LinearLayout>
    </LinearLayout>
 
 
