@@ -26,7 +26,7 @@
            android:hint="标题"
            android:layout_height="50dp"/>
        <EditText
-           android:id="@+id/context"
+           android:id="@+id/content"
            android:inputType="text"
            android:layout_width="match_parent"
            android:hint="描述"
@@ -89,6 +89,11 @@
            android:id="@+id/cancel2"
            android:layout_width="200dp"
            android:text="停止发送byname"
+           android:layout_height="80dp"/>
+       <Button
+           android:id="@+id/test"
+           android:layout_width="200dp"
+           android:text="测试"
            android:layout_height="80dp"/>
 
        <LinearLayout
