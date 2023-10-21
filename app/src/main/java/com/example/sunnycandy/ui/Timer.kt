@@ -4,9 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,6 +27,8 @@ import com.google.gson.reflect.TypeToken
 class Timer : AppCompatActivity() {
 
     private lateinit var binding: ActivityTimerBinding
+    //定义历史元素的结构
+    data class HistoryItem(val title:String, val content:String,val numInterval: Int, val interval: String,  val startTime: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +55,6 @@ class Timer : AppCompatActivity() {
         notification.createNotificationChannel("timer", "timer")
         val button = binding.assure
 
-        //定义历史元素的结构
-        data class HistoryItem(val title:String, val content:String,val numInterval: Int, val interval: String,  val startTime: String)
         // 获取 SharedPreferences 中的 JSON 字符串
         val historySharedPred = this.getSharedPreferences("historyItems", Context.MODE_PRIVATE)
         val editor = historySharedPred.edit()
@@ -69,11 +71,24 @@ class Timer : AppCompatActivity() {
             clockItem.findViewById<TextView>(R.id.itemtitle).text = item.title
             clockItem.findViewById<TextView>(R.id.itemcontent).text = item.content
             clockItem.findViewById<ImageView>(R.id.cancelClock).setOnClickListener{
-                history.removeView(clockItem)
-                WorkManager.getInstance(this).cancelUniqueWork(item.title)
-                historyItems.remove(item)
-                val tempJson = gson.toJson(historyItems)
-                editor.putString("historyData",tempJson).apply()
+                val alertDialog = AlertDialog.Builder(this)
+                    .setTitle("确认删除")
+                    .setMessage("确认删除"+item.title + "吗？")
+                    .setPositiveButton("确定"){dialog,which->
+                        history.removeView(clockItem)
+                        WorkManager.getInstance(this).cancelUniqueWork(item.title)
+                        historyItems.remove(item)
+                        val tempJson = gson.toJson(historyItems)
+                        editor.putString("historyData",tempJson).apply()
+                        Log.d("警告框","删除了"+item.title)
+                        dialog.dismiss()}
+                    .setNegativeButton("取消"){dialog,which->
+                        Log.d("警告框","点击了取消")
+                        dialog.dismiss()
+                    }
+                    .setCancelable(false)
+                    .create()
+                alertDialog.show()
             }
             history.addView(clockItem)
         }
@@ -128,17 +143,48 @@ class Timer : AppCompatActivity() {
                 clockItem.findViewById<TextView>(R.id.itemtitle).text = title
                 clockItem.findViewById<TextView>(R.id.itemcontent).text = content
                 clockItem.findViewById<ImageView>(R.id.cancelClock).setOnClickListener{
-                    history.removeView(clockItem)
-                    WorkManager.getInstance(this).cancelUniqueWork(title)
-                    historyItems.remove(newItem)
-                    val tempJson = gson.toJson(historyItems)
-                    editor.putString("historyData",tempJson).apply()
+                    val alertDialog = AlertDialog.Builder(this)
+                        .setTitle("确认删除")
+                        .setMessage("确认删除"+title + "吗？")
+                        .setPositiveButton("确定"){dialog,which->
+                            history.removeView(clockItem)
+                            WorkManager.getInstance(this).cancelUniqueWork(title)
+                            historyItems.remove(newItem)
+                            val tempJson = gson.toJson(historyItems)
+                            editor.putString("historyData",tempJson).apply()
+                            Log.d("警告框","删除了"+ title)
+                            dialog.dismiss()}
+                        .setNegativeButton("取消"){dialog,which->
+                            Log.d("警告框","点击了取消")
+                            dialog.dismiss()
+                        }
+                        .setCancelable(false)
+                        .create()
+                    alertDialog.show()
                 }
                 history.addView(clockItem)
             } else {
                 // 未授权，需要请求权限或执行适当的处理
                 ActivityCompat.requestPermissions(this, arrayOf(permission), 100)
             }
+        }
+
+        val testbutton = binding.test
+        testbutton.setOnClickListener{
+            val alertDialog = AlertDialog.Builder(this)
+                .setTitle("测试")
+                .setMessage("这是一个测试")
+                .setPositiveButton("确定"){dialog,which->
+                    Log.d("警告框","点击了确认")
+                    dialog.dismiss()}
+                .setNegativeButton("取消"){dialog,which->
+                    Log.d("警告框","点击了取消")
+                    dialog.dismiss()
+                }
+                .setCancelable(false)
+                .create()
+
+            alertDialog.show()
         }
 }
 }
