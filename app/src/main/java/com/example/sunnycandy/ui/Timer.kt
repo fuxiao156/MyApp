@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -53,7 +54,6 @@ class Timer : AppCompatActivity() {
 
         //定义历史元素的结构
         data class HistoryItem(val title:String, val content:String,val numInterval: Int, val interval: String,  val startTime: String)
-        data class User(val name1:String,val name2:String)
         // 获取 SharedPreferences 中的 JSON 字符串
         val historySharedPred = this.getSharedPreferences("historyItems", Context.MODE_PRIVATE)
         val historyJson = historySharedPred.getString("historyData","[]")
@@ -109,6 +109,10 @@ class Timer : AppCompatActivity() {
                 val clockItem = inflater.inflate(R.layout.clock_item,null)
                 clockItem.findViewById<TextView>(R.id.itemtitle).text = title
                 clockItem.findViewById<TextView>(R.id.itemcontent).text = content
+                clockItem.findViewById<ImageView>(R.id.cancelClock).setOnClickListener{
+                    history.removeView(clockItem)
+                    WorkManager.getInstance(this).cancelUniqueWork(title)
+                }
                 history.addView(clockItem)
 
                 //创建新的 HistoryItem对象
@@ -116,8 +120,8 @@ class Timer : AppCompatActivity() {
                 historyItems.add(newItem)
                 //保存对象到SharedPreference
                 val tempJson = gson.toJson(historyItems)
-                val editor = historySharedPred.edit()
-                editor.putString("historyData",tempJson).apply()
+//                val editor = historySharedPred.edit()
+//                editor.putString("historyData",tempJson).apply()
                 Log.d("newItem的值是",newItem.toString())
                 Log.d("nweItem的json是",gson.toJson(newItem))
                 Log.d("historyItem的值是",historyItems.toString())

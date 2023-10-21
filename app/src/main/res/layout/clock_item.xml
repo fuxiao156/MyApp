@@ -29,22 +29,22 @@
                     android:textStyle="bold"
                     />
                 <TextView
+                    android:id="@+id/itemcontent"
                     android:layout_marginBottom="4dp"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:layout_marginLeft="16dp"
-                    android:id="@+id/itemInterval"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="然然，嘿嘿嘿，我的然然"
                     android:textSize="20sp"
                     />
                 <TextView
+                    android:id="@+id/itemInterval"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/bc_curve"
                     android:textStyle="bold"
                     android:textAlignment="center"
-                    android:id="@+id/itemcontent"
                     android:paddingHorizontal="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,6 +60,7 @@
                 android:gravity="end"
                 android:layout_weight="1">
                 <ImageView
+                    android:id="@+id/cancelClock"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_rubish" />
