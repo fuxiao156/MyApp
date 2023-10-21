@@ -22,7 +22,7 @@ class ReminderWorker(appContext: Context, workerParams: WorkerParameters) :
         Log.d("是否执行循环","执行了一次循环")
         val daliyWorkRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
             .setInitialDelay(
-                interval.toLong(),TimeUnit.SECONDS
+                interval.toLong(),TimeUnit.MINUTES
             ).setInputData(inputData)
             .addTag(tag.toString())
             .build()

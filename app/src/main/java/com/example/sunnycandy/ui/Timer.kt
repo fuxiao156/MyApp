@@ -59,6 +59,9 @@ class Timer : AppCompatActivity() {
         val historySharedPred = this.getSharedPreferences("historyItems", Context.MODE_PRIVATE)
         val editor = historySharedPred.edit()
         val historyJson = historySharedPred.getString("historyData","[]")
+        var notificationnum = historySharedPred.getInt("notificationnum",0)
+        Log.d("从本地获取historyItems",historyJson.toString())
+        Log.d("从本地获取notigicationnum",notificationnum.toString())
         // 将 JSON 字符串转换为对象列表
         val gson = GsonBuilder().create()
         val historyItems: MutableList<HistoryItem> = gson.fromJson(historyJson, object : TypeToken<MutableList<HistoryItem>>(){}.type)
@@ -99,28 +102,28 @@ class Timer : AppCompatActivity() {
             val day = binding.day.text.toString()
             val hour = binding.hour.text.toString()
             val minite = binding.minite.text.toString()
+            //循环间隔-分钟
+            val interval = getInterval(day,hour,minite)
             //绑定通知内容
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
             val tag = "test"
             //每一个通知的id
-            val notificationId = 1
             val permission = Manifest.permission.POST_NOTIFICATIONS
             //延迟时间-分钟
             val delayTime = 5
-            //循环间隔-分钟
-            val interval = 10
-            val inputData = Data.Builder()
-                .putString("title",title)
-                .putString("content",content)
-                .putString("tag",tag)
-                .putInt("notificationId",notificationId)
-                .putInt("delayTime",delayTime)
-                .putInt("Interval",interval)
-                .build()
             //检测是否授权
             val granted = PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this, permission)
-            if (granted) {
+            if (granted &&interval!=0&&title!=""&&content!="") {
+                notificationnum++
+                val inputData = Data.Builder()
+                    .putString("title",title)
+                    .putString("content",content)
+                    .putString("tag",tag)
+                    .putInt("notificationId",notificationnum)
+                    .putInt("delayTime",delayTime)
+                    .putInt("Interval",interval)
+                    .build()
                 //  已授权，创建 OneTimeWorkequest 来调度 ReminderWorker
                 val workRequest = OneTimeWorkRequestBuilder<ReminderWorker>()
                     .setInitialDelay(
@@ -138,6 +141,7 @@ class Timer : AppCompatActivity() {
                 //保存对象到SharedPreference
                 val tempJson = gson.toJson(historyItems)
                 editor.putString("historyData",tempJson).apply()
+                editor.putInt("notificationnum",notificationnum).apply()
                 //创建对应的视图
                 val clockItem = inflater.inflate(R.layout.clock_item,null)
                 clockItem.findViewById<TextView>(R.id.itemtitle).text = title
@@ -164,8 +168,20 @@ class Timer : AppCompatActivity() {
                 }
                 history.addView(clockItem)
             } else {
-                // 未授权，需要请求权限或执行适当的处理
-                ActivityCompat.requestPermissions(this, arrayOf(permission), 100)
+                if(granted){
+                    val alertDialog = AlertDialog.Builder(this)
+                        .setTitle("错误捏")
+                        .setMessage("有必要项没有输入。")
+                        .setPositiveButton("ok") { dialog, which ->
+                        }
+                        .create()
+                    alertDialog.show()
+
+                }
+                else{
+                    // 未授权，需要请求权限或执行适当的处理
+                    ActivityCompat.requestPermissions(this, arrayOf(permission), 100)
+                }
             }
         }
 
@@ -187,4 +203,21 @@ class Timer : AppCompatActivity() {
             alertDialog.show()
         }
 }
+
+    fun getInterval(day:String,hour:String,minite:String):Int {
+        var interval = 0
+        if(day!="")
+        {
+            interval+= day.toInt()*24*60
+        }
+        if(hour!="")
+        {
+            interval+= hour.toInt()*60
+        }
+        if(minite!="")
+        {
+            interval+= minite.toInt()
+        }
+        return interval
+    }
 }
