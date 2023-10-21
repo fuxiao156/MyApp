@@ -2,29 +2,67 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/itemtitle"
+        <LinearLayout
+            android:padding="20dp"
+            android:background="@drawable/bc_clock_item"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="11111"
-            />
-        <TextView
-            android:id="@+id/itemInterval"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="222"
-            />
-        <TextView
-            android:id="@+id/itemcontent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="222"
-            />
-    </LinearLayout>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_weight="0"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView android:id="@+id/itemtitle"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="11111"
+                    android:textSize="25sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="16dp"
+                    android:id="@+id/itemInterval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="然然，嘿嘿嘿，我的然然"
+                    android:textSize="20sp"
+                    />
+                <TextView
+                    android:layout_marginLeft="30dp"
+                    android:background="@drawable/bc_curve"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:id="@+id/itemcontent"
+                    android:paddingHorizontal="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#66ccff"
+                    android:textSize="20sp"
+                    android:text="222"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_rubish" />
+            </LinearLayout>
+        </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

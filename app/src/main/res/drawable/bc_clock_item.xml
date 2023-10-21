@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 阴影 -->
+    <item android:top="6dp"
+        android:left="6dp">
+        <shape
+            >
+            <solid android:color="#4D000000" /> <!-- 阴影的颜色和不透明度 -->
+            <corners android:radius="14dp" /> <!-- 圆角半径，可根据需要调整 -->
+        </shape>
+    </item>
+    <item android:right="6dp"
+        android:bottom="6dp">
+        <shape>
+            <solid android:color="#66ccff"/>
+<!--            <stroke-->
+<!--                android:width="8dp"-->
+<!--                android:color="#F7F7F7"/>-->
+            <corners android:radius="14dp" /> <!-- 圆角半径，可根据需要调整 -->
+        </shape>
+    </item>
+</layer-list>

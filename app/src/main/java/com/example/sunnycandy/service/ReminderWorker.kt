@@ -42,7 +42,7 @@ class ReminderWorker(appContext: Context, workerParams: WorkerParameters) :
         notification.createNotificationChannel("timer", "timer")
 
         if (contentText != null&& title!=null) {
-            notification.sendNotification("timer", notifacationId,  title, contentText, R.drawable.clock)
+            notification.sendNotification("timer", notifacationId,  title, contentText, R.drawable.ic_clock)
         }
         else{
             Log.d("循环相关","循环停止")
