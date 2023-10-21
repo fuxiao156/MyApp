@@ -80,21 +80,6 @@
            android:layout_width="200dp"
            android:text="确定开始"
            android:layout_height="80dp"/>
-       <Button
-           android:id="@+id/cancel"
-           android:layout_width="200dp"
-           android:text="停止发送tag"
-           android:layout_height="80dp"/>
-       <Button
-           android:id="@+id/cancel2"
-           android:layout_width="200dp"
-           android:text="停止发送byname"
-           android:layout_height="80dp"/>
-       <Button
-           android:id="@+id/test"
-           android:layout_width="200dp"
-           android:text="测试"
-           android:layout_height="80dp"/>
 
        <LinearLayout
            android:id="@+id/history"
